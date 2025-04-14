@@ -20,7 +20,7 @@ app.listen(PORT, ()=> console.log("Server Running on port "+PORT))*/
 import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
-import connectDB from '../configs/mongodb.js'
+import connectDB from './configs/mongodb.js'
 import serverless from 'serverless-http'
 
 const app = express()
@@ -34,4 +34,5 @@ await connectDB()
 
 const handler = serverless(app)
 
-export default handler
+// THIS is what Vercel expects with @vercel/node
+module.exports = handler
