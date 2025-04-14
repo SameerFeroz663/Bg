@@ -11,8 +11,11 @@ app.use(cors())
 
 app.get('/', (req, res) => res.send("API Working"))
 
-// Only connect once
-await connectDB()
+try {
+  await connectDB()
+} catch (err) {
+  console.error("DB connection failed. Exiting.")
+  process.exit(1)
+}
 
-// Export as default for Vercel
 export default serverless(app)
