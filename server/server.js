@@ -35,22 +35,22 @@ app.get('/', (req, res) => res.send("API Working"))
 
 // Connect to DB
 ;(async () => {
-    try{
-    await connectDB()
-  } catch (err) {
-    console.error("Failed to connect DB", err)
-  }
-  })()
-  
+    try {
+        await connectDB()
+    } catch (err) {
+        console.error("Failed to connect DB", err)
+    }
+})()
 
-// Export handler for Vercel
-export const handler = serverless(app)
+// Export handler for Vercel (default export)
+export default serverless(app)
 
 // Optional local dev
 if (process.env.NODE_ENV !== 'production') {
     const PORT = process.env.PORT || 4000
     app.listen(PORT, () => {
-      console.log("Local server running on port", PORT)
+        console.log("Local server running on port", PORT)
     })
-  }
+}
+
   
