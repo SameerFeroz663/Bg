@@ -21,7 +21,6 @@ app.use(async (req, res, next) => {
       await connectDB()
       isConnected = true
     } catch (err) {
-      console.error("Failed to connect to MongoDB", err)
       return res.status(500).json({ error: "DB connection failed" })
     }
   }
