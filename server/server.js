@@ -1,4 +1,4 @@
-/*import 'dotenv/config'
+import 'dotenv/config'
 import express from 'express'
 import cors from 'cors'
 import connectDB from './configs/mongodb.js'
@@ -16,23 +16,5 @@ app.use(cors())
 // API route
 app.get('/',(req,res)=> res.send("API Working"))
 
-app.listen(PORT, ()=> console.log("Server Running on port "+PORT))*/
-import 'dotenv/config'
-import express from 'express'
-import cors from 'cors'
-import connectDB from './configs/mongodb.js'
-import serverless from 'serverless-http'
+app.listen(PORT, ()=> console.log("Server Running on port "+PORT))
 
-const app = express()
-
-app.use(express.json())
-app.use(cors())
-
-app.get('/', (req, res) => res.send("API Working"))
-
-await connectDB()
-
-const handler = serverless(app)
-
-// THIS is what Vercel expects with @vercel/node
-module.exports = handler
