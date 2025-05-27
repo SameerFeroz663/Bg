@@ -16,6 +16,9 @@
     "react-router-dom": "^7.5.0",
     "react-toastify": "^11.0.5"
   },
+  "scripts": {
+  "build": "vite build"
+},
   "devDependencies": {
     "@eslint/js": "^9.21.0",
     "@types/react": "^19.0.10",
