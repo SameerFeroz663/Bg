@@ -1,10 +1,11 @@
-// api/remove-bg.js
-import { IncomingForm } from 'formidable'; // or busboy, formidable for parsing form data
+import { IncomingForm } from 'formidable';
+import fs from 'fs';
 import axios from 'axios';
+import FormData from 'form-data';
 
 export const config = {
   api: {
-    bodyParser: false, // we disable default body parsing to handle file upload manually
+    bodyParser: false,
   },
 };
 
@@ -13,7 +14,6 @@ export default async function handler(req, res) {
     return res.status(405).send('Method Not Allowed');
   }
 
-  // Parse form-data (image file) manually
   const form = new IncomingForm();
 
   form.parse(req, async (err, fields, files) => {
@@ -28,10 +28,8 @@ export default async function handler(req, res) {
 
     try {
       const file = files.image;
-      // Read the file buffer
       const fileBuffer = await fs.promises.readFile(file.filepath);
 
-      // Prepare form-data for remove.bg
       const formData = new FormData();
       formData.append('image_file', fileBuffer, file.originalFilename);
       formData.append('size', 'auto');
