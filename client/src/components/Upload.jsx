@@ -20,10 +20,11 @@ const Upload = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/remove-bg'), {
-        method: 'POST',
-        body: formData,
-      });
+   const response = await fetch('/api/remove-bg', {
+  method: 'POST',
+  body: formData,
+});
+
 
       if (!response.ok) {
         throw new Error('Failed to process image');
