@@ -20,7 +20,8 @@ const Upload = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/remove-bg', {
+      const response = await fetch('https://bg-tawny.vercel.app/api/remove-bg
+', {
         method: 'POST',
         body: formData,
       });
