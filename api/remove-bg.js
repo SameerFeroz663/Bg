@@ -2,6 +2,7 @@ import { IncomingForm } from 'formidable';
 import fs from 'fs';
 import axios from 'axios';
 import FormData from 'form-data';
+console.log('Remove.bg API key:', process.env.REMOVE_BG_API_KEY ? 'SET' : 'NOT SET');
 
 export const config = {
   api: {
