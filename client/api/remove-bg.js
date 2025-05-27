@@ -51,10 +51,12 @@ export default async function handler(req, res) {
 
       res.status(200).send(response.data);
     } catch (error) {
-            console.error('Remove.bg API error:', error?.response?.data || error.message);
+  console.error('Remove.bg API error:', error?.response?.data || error.message);
+  res.status(500).json({
+    message: 'Error processing image',
+    details: error?.response?.data || error.message,
+  });
+}
 
-      console.error('Remove.bg API error:', error?.response?.data || error.message);
-      res.status(500).send('Error processing image');
-    }
   });
 }
