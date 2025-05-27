@@ -40,7 +40,7 @@ export default async function handler(req, res) {
         {
           headers: {
             ...formData.getHeaders(),
-            'X-Api-Key': process.env.REMOVE_BG_API_KEY, // ← MAKE SURE THIS IS SET
+            'X-Api-Key': 'QgD5AEjBnYLSzhRTtWWVYFc8', // ← MAKE SURE THIS IS SET
           },
           responseType: 'arraybuffer',
         }
