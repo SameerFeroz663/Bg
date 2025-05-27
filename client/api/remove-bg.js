@@ -56,11 +56,18 @@ export default async function handler(req, res) {
       res.setHeader('Content-Type', 'image/png');
       res.status(200).send(response.data);
     } catch (error) {
-      console.error('Remove.bg API error:', error?.response?.data || error.message);
-      return res.status(500).json({
-        message: 'Error processing image',
-        details: error?.response?.data || error.message,
-      });
+  if (error.response) {
+    console.error('Remove.bg API error status:', error.response.status);
+    console.error('Remove.bg API error data:', error.response.data.toString('utf8'));
+  } else {
+    console.error('Remove.bg API error:', error.message);
+  }
+  res.status(500).json({
+    message: 'Error processing image',
+    details: error.response?.data?.toString('utf8') || error.message,
+  });
+}
+
     }
   });
 }
