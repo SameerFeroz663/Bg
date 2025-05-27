@@ -20,7 +20,7 @@ const Upload = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('https://bg-eosin.vercel.app/remove-bg', {
+      const response = await fetch('/api/remove-bg', {
         method: 'POST',
         body: formData,
       });
