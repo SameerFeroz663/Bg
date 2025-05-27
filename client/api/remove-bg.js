@@ -48,10 +48,11 @@ export default async function handler(req, res) {
       );
 
       res.setHeader('Content-Type', 'image/png');
-      console.error('Remove.bg API error:', error?.response?.data || error.message);
 
       res.status(200).send(response.data);
     } catch (error) {
+            console.error('Remove.bg API error:', error?.response?.data || error.message);
+
       console.error('Remove.bg API error:', error?.response?.data || error.message);
       res.status(500).send('Error processing image');
     }
