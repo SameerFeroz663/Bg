@@ -2,7 +2,6 @@ import { IncomingForm } from 'formidable';
 import fs from 'fs';
 import axios from 'axios';
 import FormData from 'form-data';
-console.log('Remove.bg API key:', process.env.REMOVE_BG_API_KEY ? 'SET' : 'NOT SET');
 
 export const config = {
   api: {
@@ -41,7 +40,7 @@ export default async function handler(req, res) {
         {
           headers: {
             ...formData.getHeaders(),
-            'X-Api-Key': process.env.REMOVE_BG_API_KEY,
+            'X-Api-Key': process.env.REMOVE_BG_API_KEY, // ← MAKE SURE THIS IS SET
           },
           responseType: 'arraybuffer',
         }
@@ -50,7 +49,7 @@ export default async function handler(req, res) {
       res.setHeader('Content-Type', 'image/png');
       res.status(200).send(response.data);
     } catch (error) {
-      console.error(error.response?.data || error.message);
+      console.error('Remove.bg API error:', error?.response?.data || error.message);
       res.status(500).send('Error processing image');
     }
   });
