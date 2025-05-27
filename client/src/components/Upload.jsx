@@ -26,6 +26,7 @@ const Upload = () => {
 });
 
 
+
       if (!response.ok) {
         throw new Error('Failed to process image');
       }
