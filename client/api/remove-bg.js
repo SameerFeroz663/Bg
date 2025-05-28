@@ -29,6 +29,8 @@ export default async function handler(req, res) {
     }
 
     try {
+      console.log('files object:', files);
+
       // In formidable v3:
       const filePath = file.path;
       if (!filePath) {
