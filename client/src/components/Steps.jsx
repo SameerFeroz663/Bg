@@ -3,17 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 
 const Steps = () => {
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleImageUpload = async (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file || !file.type.startsWith('image/')) {
       alert('Please upload a valid image file.');
       return;
     }
 
-    const originalImage = URL.createObjectURL(file);
+    const originalImageURL = URL.createObjectURL(file);
     const formData = new FormData();
     formData.append('image', file);
 
@@ -30,22 +30,21 @@ const Steps = () => {
       }
 
       const blob = await response.blob();
-      const resultUrl = URL.createObjectURL(blob);
+      const processedImageURL = URL.createObjectURL(blob);
 
       navigate('/result', {
         state: {
-          original: originalImage,
-          result: resultUrl,
+          originalImageURL,
+          processedImageURL,
         },
       });
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Upload error:', error);
       alert('Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="pb-16">
       <h1 className="text-center text-2xl md:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-gray-900 to-gray-400 bg-clip-text text-transparent py-6 md:py-16">
