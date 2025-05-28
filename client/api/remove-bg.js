@@ -14,11 +14,11 @@ export default async function handler(req, res) {
     return res.status(405).send('Method Not Allowed');
   }
 
-  const form = new IncomingForm({ multiples: false });
+  const form = new IncomingForm();
 
   form.parse(req, async (err, fields, files) => {
     if (err) {
-      console.error('Form parse error:', err);
+      console.error(err);
       return res.status(500).send('Error parsing form data');
     }
 
@@ -26,17 +26,10 @@ export default async function handler(req, res) {
       return res.status(400).send('No image file uploaded');
     }
 
-    const file = files.image;
-
-    let fileBuffer;
     try {
-      fileBuffer = await fs.promises.readFile(file.filepath);
-    } catch (fileReadError) {
-      console.error('Error reading uploaded file:', fileReadError);
-      return res.status(500).send('Error reading uploaded file');
-    }
+      const file = files.image;
+      const fileBuffer = await fs.promises.readFile(file.filepath);
 
-    try {
       const formData = new FormData();
       formData.append('image_file', fileBuffer, file.originalFilename);
       formData.append('size', 'auto');
@@ -47,27 +40,17 @@ export default async function handler(req, res) {
         {
           headers: {
             ...formData.getHeaders(),
-            'X-Api-Key': 'xnNv2eASdr4w2E4Dh141i194', // Check your key here
+            'X-Api-Key': process.env.REMOVE_BG_API_KEY, // ← MAKE SURE THIS IS SET
           },
           responseType: 'arraybuffer',
         }
       );
 
       res.setHeader('Content-Type', 'image/png');
-      return res.status(200).send(response.data);
-
+      res.status(200).send(response.data);
     } catch (error) {
-      if (error.response) {
-        console.error('Remove.bg API error status:', error.response.status);
-        console.error('Remove.bg API error data:', error.response.data.toString('utf8'));
-      } else {
-        console.error('Remove.bg API error:', error.message);
-      }
-      return res.status(500).json({
-        message: 'Error processing image',
-        details: error.response?.data?.toString('utf8') || error.message,
-      });
+      console.error('Remove.bg API error:', error?.response?.data || error.message);
+      res.status(500).send('Error processing image');
     }
-
-  }); // <-- closes form.parse callback
-} // <-- closes handler function
+  });
+}
