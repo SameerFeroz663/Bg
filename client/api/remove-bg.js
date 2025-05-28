@@ -28,21 +28,20 @@ export default async function handler(req, res) {
       return res.status(400).send('No image file uploaded');
     }
 
+    const uploadedFile = Array.isArray(file) ? file[0] : file;
+    const filePath = uploadedFile.filepath;
+
+    if (!filePath) {
+      return res.status(400).send('File path missing');
+    }
+
     try {
-      console.log('files object:', files);
-
-      // In formidable v3:
-      const filePath = file.path;
-      if (!filePath) {
-        return res.status(400).send('File path missing');
-      }
-
       const fileBuffer = await fs.promises.readFile(filePath);
 
       const formData = new FormData();
       formData.append('image_file', fileBuffer, {
-        filename: file.name || 'image.png',       // v3 uses 'name' for original filename
-        contentType: file.type || 'image/png',    // v3 uses 'type' for mimetype
+        filename: uploadedFile.originalFilename || 'image.png',
+        contentType: uploadedFile.mimetype || 'image/png',
       });
       formData.append('size', 'auto');
 
@@ -52,7 +51,7 @@ export default async function handler(req, res) {
         {
           headers: {
             ...formData.getHeaders(),
-            'X-Api-Key': 'xnNv2eASdr4w2E4Dh141i194', // Your API key here
+            'X-Api-Key': 'xnNv2eASdr4w2E4Dh141i194',
           },
           responseType: 'arraybuffer',
         }
