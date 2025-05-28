@@ -60,7 +60,14 @@ export default async function handler(req, res) {
       res.setHeader('Content-Type', 'image/png');
       res.status(200).send(response.data);
     } catch (error) {
-      console.error('Remove.bg API error:', error.response?.data || error.message);
+if (error.response) {
+  console.error('Remove.bg API Response Error:', {
+    status: error.response.status,
+    data: error.response.data,
+  });
+} else {
+  console.error('Remove.bg Unexpected Error:', error.message);
+}
       res.status(500).send('Error processing image');
     }
   });
