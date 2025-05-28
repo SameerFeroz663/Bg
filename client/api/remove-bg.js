@@ -32,7 +32,7 @@ if (req.method !== 'POST') {
       const fileBuffer = await fs.promises.readFile(file.filepath);
 
       const formData = new FormData();
-formData.append('image_file', fileBuffer, file.originalFilename || 'upload.png');
+formData.append('image_file', fileBuffer);
       formData.append('size', 'auto');
 
       const response = await axios.post(
