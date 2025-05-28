@@ -18,45 +18,51 @@ if (req.method !== 'POST') {
   const form = new IncomingForm();
 
   form.parse(req, async (err, fields, files) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send('Error parsing form data');
+  if (err) {
+    console.error(err);
+    return res.status(500).send('Error parsing form data');
+  }
+
+  if (!files.image) {
+    return res.status(400).send('No image file uploaded');
+  }
+
+  try {
+    const file = files.image;
+    console.log('Uploaded file:', file);
+
+    const filePath = file.filepath || file.path;
+    if (!filePath) {
+      return res.status(400).send('File path is missing');
     }
 
-    if (!files.image) {
-      return res.status(400).send('No image file uploaded');
-    }
+    const fileBuffer = await fs.promises.readFile(filePath);
 
-    try {
-      const file = files.image;
-      console.log('Uploaded file:', file);
+    const formData = new FormData();
+    formData.append('image_file', fileBuffer, {
+      filename: file.originalFilename || 'image.png',
+      contentType: file.mimetype || 'image/png',
+    });
+    formData.append('size', 'auto');
 
-      const fileBuffer = await fs.promises.readFile(file.filepath);
+    const response = await axios.post(
+      'https://api.remove.bg/v1.0/removebg',
+      formData,
+      {
+        headers: {
+          ...formData.getHeaders(),
+          'X-Api-Key': process.env.REMOVE_BG_API_KEY,
+        },
+        responseType: 'arraybuffer',
+      }
+    );
 
-      const formData = new FormData();
-formData.append('image_file', fileBuffer, {
-  filename: file.originalFilename || 'image.png',
-  contentType: file.mimetype || 'image/png',
+    res.setHeader('Content-Type', 'image/png');
+    res.status(200).send(response.data);
+  } catch (error) {
+    console.error('Remove.bg API error:', error?.response?.data || error.message);
+    res.status(500).send('Error processing image');
+  }
 });
-      formData.append('size', 'auto');
 
-      const response = await axios.post(
-        'https://api.remove.bg/v1.0/removebg',
-        formData,
-        {
-          headers: {
-            ...formData.getHeaders(),
-            'X-Api-Key': 'xnNv2eASdr4w2E4Dh141i194', // ← MAKE SURE THIS IS SET
-          },
-          responseType: 'arraybuffer',
-        }
-      );
-
-      res.setHeader('Content-Type', 'image/png');
-      res.status(200).send(response.data);
-    } catch (error) {
-      console.error('Remove.bg API error:', error?.response?.data || error.message);
-      res.status(500).send('Error processing image');
-    }
-  });
 }
