@@ -112,4 +112,4 @@ const Steps = () => {
   );
 };
 
-export default Steps; still no console showing
+export default Steps; 
