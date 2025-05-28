@@ -5,8 +5,8 @@ const Result = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const originalImage = state?.originalImage;
-  const processedImage = state?.processedImage;
+  const originalImage = state?.original;
+  const processedImage = state?.result;
 
   if (!originalImage || !processedImage) {
     return (
