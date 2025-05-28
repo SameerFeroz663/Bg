@@ -1,8 +1,4 @@
-import React from 'react'
-import { assets } from '../assets/assets'
-
-const Header = () => {
-  import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 
