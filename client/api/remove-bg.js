@@ -51,7 +51,7 @@ if (req.method !== 'POST') {
       {
         headers: {
           ...formData.getHeaders(),
-          'X-Api-Key': process.env.REMOVE_BG_API_KEY,
+          'X-Api-Key': 'xnNv2eASdr4w2E4Dh141i194',
         },
         responseType: 'arraybuffer',
       }
