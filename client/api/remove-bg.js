@@ -10,9 +10,10 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).send('Method Not Allowed');
-  }
+if (req.method !== 'POST') {
+  return res.status(405).end('Method Not Allowed');
+}
+
 
   const form = new IncomingForm();
 
@@ -40,7 +41,7 @@ export default async function handler(req, res) {
         {
           headers: {
             ...formData.getHeaders(),
-            'X-Api-Key': process.env.REMOVE_BG_API_KEY, // ← MAKE SURE THIS IS SET
+            'X-Api-Key': 'xnNv2eASdr4w2E4Dh141i194', // ← MAKE SURE THIS IS SET
           },
           responseType: 'arraybuffer',
         }
