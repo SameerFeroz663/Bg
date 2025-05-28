@@ -29,6 +29,8 @@ if (req.method !== 'POST') {
 
     try {
       const file = files.image;
+      console.log('Uploaded file:', file);
+
       const fileBuffer = await fs.promises.readFile(file.filepath);
 
       const formData = new FormData();
