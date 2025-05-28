@@ -5,10 +5,11 @@ const Result = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
 
-  const originalImage = state?.original;
-  const processedImage = state?.result;
+ const location = useLocation();
+const { originalImageURL, processedImageURL } = location.state || {};
 
-  if (!originalImage || !processedImage) {
+
+  if (!originalImageURL || !processedImageURL) {
     return (
       <div className="text-center mt-10">
         <p className="text-red-500">No image data found. Please upload again.</p>
@@ -25,11 +26,11 @@ const Result = () => {
         <div className='flex flex-col sm:grid grid-cols-2 gap-8'>
           <div>
             <p className='font-semibold text-gray-600 mb-2'>Original</p>
-            <img className='rounded-md border' src={originalImage} alt="Original Image" />
+            <img className='rounded-md border' src={originalImageURL} alt="Original Image" />
           </div>
           <div>
             <p className='font-semibold text-gray-600 mb-2'>Background Removed</p>
-            <img className='rounded-md border' src={processedImage} alt="Processed Image" />
+            <img className='rounded-md border' src={processedImageURL} alt="Processed Image" />
           </div>
         </div>
 
@@ -41,7 +42,7 @@ const Result = () => {
             Try Another Image
           </button>
           <a
-            href={processedImage}
+            href={processedImageURL}
             download="no-bg.png"
             className='px-8 py-2.5 text-white text-sm bg-gradient-to-r from-violet-600 to-fuchsia-500 rounded-full hover:scale-105 transition-all duration-700'
           >
