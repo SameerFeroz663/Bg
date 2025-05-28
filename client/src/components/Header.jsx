@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { assets } from '../assets/assets';
 
-const Steps = () => {
+const Header = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
