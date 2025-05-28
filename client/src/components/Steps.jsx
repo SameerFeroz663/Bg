@@ -6,7 +6,9 @@ const Steps = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  const handleImageChange = async (e) => {
+  const handleImageUpload = async (e) => {
+      console.log("handleImageChange triggered");
+
     const file = e.target.files[0];
     if (!file || !file.type.startsWith('image/')) {
       alert('Please upload a valid image file.');
@@ -89,7 +91,7 @@ const Steps = () => {
 
       {/* Upload Button */}
       <div className="text-center mt-12">
-        <input type="file" id="upload-step" hidden onChange={handleImageChange} />
+        <input type="file" id="upload-step" hidden onChange={handleImageUpload} />
         <label
           htmlFor="upload-step"
           className="inline-flex gap-3 px-8 py-3.5 rounded-full cursor-pointer bg-gradient-to-r from-violet-600 to-fuchsia-500 hover:scale-105 transition-all duration-700"
