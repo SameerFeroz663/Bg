@@ -2,6 +2,56 @@ import React from 'react'
 import { assets } from '../assets/assets'
 
 const Header = () => {
+  import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { assets } from '../assets/assets';
+
+const Steps = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const handleImageUpload = async (e) => {
+      console.log("handleImageChange triggered");
+
+    const file = e.target.files[0];
+    if (!file || !file.type.startsWith('image/')) {
+      alert('Please upload a valid image file.');
+      return;
+    }
+
+    const originalImageURL = URL.createObjectURL(file);
+    const formData = new FormData();
+    formData.append('image', file);
+
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/remove-bg', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to process image');
+      }
+
+      const blob = await response.blob();
+      const processedImageURL = URL.createObjectURL(blob);
+
+      navigate('/result', {
+        state: {
+          originalImageURL,
+          processedImageURL,
+        },
+      });
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('Something went wrong. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className='flex items-center justify-between max-sm:flex-col-reverse gap-y-10 px-4 mt-10 lg:px-44 sm:mt-20 '>
         {/* -------- Left Side */}
