@@ -51,7 +51,7 @@ export default async function handler(req, res) {
         {
           headers: {
             ...formData.getHeaders(),
-            'X-Api-Key': '1Ek7MJ5gBcQvnzA6dWzEKH6s',
+            'X-Api-Key': 'gYUewvz4hnQeskPp3dAUQj7e',
           },
           responseType: 'arraybuffer',
         }
