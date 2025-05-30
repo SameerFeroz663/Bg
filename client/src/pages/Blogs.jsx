@@ -4,7 +4,7 @@ const Blogs = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch('https://yourdomain.com/wp/wp-json/wp/v2/posts')
+    fetch('https://dashboard.freeimagebackgroundremover.com/wp-json/wp/v2/posts')
       .then(response => response.json())
       .then(data => setPosts(data))
       .catch(error => console.error('Error fetching posts:', error));
