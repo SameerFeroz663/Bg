@@ -12,7 +12,7 @@ const Blogs = () => {
   }, []);
 
   return (
-    <div className="px-4 py-8 lg:px-44">
+    <div className="px-4 py-20 lg:px-44">
       <h1 className="text-3xl font-bold mb-6">Blog Posts</h1>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {posts.map(post => (
