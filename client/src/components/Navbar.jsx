@@ -11,7 +11,8 @@ const Navbar = () => {
   return (
     <div className='flex items-center justify-between mx-4 py-3 lg:mx-44'>
         <Link to='/'><img className='w-32 sm:w-44' src={assets.logo} alt="" /></Link>
-        {
+        <div>
+          {
             isSignedIn
             ? <div>
               <UserButton />
@@ -21,6 +22,7 @@ const Navbar = () => {
         </button>
         }
         <Link to='/blogs'>Blogs</Link>
+        </div>
       
         
     </div>
