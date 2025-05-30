@@ -10,7 +10,6 @@ const Navbar = () => {
 
   return (
     <div className='flex items-center justify-between mx-4 py-3 lg:mx-44'>
-        <Link to='/blogs'>Blogs</Link>
         <Link to='/'><img className='w-32 sm:w-44' src={assets.logo} alt="" /></Link>
         {
             isSignedIn
@@ -21,6 +20,8 @@ const Navbar = () => {
             Get started <img className='w-3 sm:w-4' src={assets.arrow_icon} alt="" />
         </button>
         }
+        <Link to='/blogs'>Blogs</Link>
+      
         
     </div>
   )
