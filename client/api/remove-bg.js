@@ -20,9 +20,6 @@ export default async function handler(req, res) {
       return res.status(500).send('Error parsing form data');
     }
 
-    console.log('fields:', fields);
-    console.log('files:', files);
-
     const file = files.image;
     if (!file) {
       return res.status(400).send('No image file uploaded');
@@ -43,15 +40,14 @@ export default async function handler(req, res) {
         filename: uploadedFile.originalFilename || 'image.png',
         contentType: uploadedFile.mimetype || 'image/png',
       });
-      formData.append('size', 'auto');
 
       const response = await axios.post(
-        'https://api.remove.bg/v1.0/removebg',
+        'https://clipdrop-api.co/remove-background/v1',
         formData,
         {
           headers: {
             ...formData.getHeaders(),
-            'X-Api-Key': 'gYUewvz4hnQeskPp3dAUQj7e',
+            'x-api-key': 'c70211c97119c3d94d7139ef6405ac684801191bf2316b604771ef9bd393e925ea8c0d39cc8b383db82ee0f613d2b41c',
           },
           responseType: 'arraybuffer',
         }
@@ -60,14 +56,14 @@ export default async function handler(req, res) {
       res.setHeader('Content-Type', 'image/png');
       res.status(200).send(response.data);
     } catch (error) {
-if (error.response) {
-  console.error('Remove.bg API Response Error:', {
-    status: error.response.status,
-    data: error.response.data,
-  });
-} else {
-  console.error('Remove.bg Unexpected Error:', error.message);
-}
+      if (error.response) {
+        console.error('ClipDrop API Response Error:', {
+          status: error.response.status,
+          data: error.response.data.toString(),
+        });
+      } else {
+        console.error('ClipDrop Unexpected Error:', error.message);
+      }
       res.status(500).send('Error processing image');
     }
   });
