@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const Blog = () => {
+const Blogs = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
