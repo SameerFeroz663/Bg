@@ -6,7 +6,7 @@ import Blogs from './pages/Blogs'
 import BuyCredit from './pages/BuyCredit'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-
+import BlogDetail from './pages/BlogDetail';
 const App = () => {
   return (
     <div className='min-h-screen bg-slate-50'>
@@ -16,6 +16,8 @@ const App = () => {
         <Route path='/result' element={<Result/>} />
         <Route path='/buy' element={<BuyCredit/>} />
         <Route path='/blogs' element={<Blogs/>} />
+  <Route path='/blogs/:id' element={<BlogDetail />} />
+        
 
       </Routes>
       <Footer />
