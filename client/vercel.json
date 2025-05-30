@@ -15,6 +15,13 @@
   ],
   "routes": [
     {
+      "src": "/wp-admin",
+      "status": 301,
+      "headers": {
+        "Location": "https://dashboard.freebackgroundremover.com/wp-admin"
+      }
+    },
+    {
       "src": "/api/(.*)",
       "dest": "/api/$1.js"
     },
