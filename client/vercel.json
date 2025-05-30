@@ -18,7 +18,7 @@
       "src": "/wp-admin",
       "status": 301,
       "headers": {
-        "Location": "https://dashboard.freebackgroundremover.com/wp-admin"
+        "Location": "https://dashboard.freeimagebackgroundremover.com/wp-admin"
       }
     },
     {
